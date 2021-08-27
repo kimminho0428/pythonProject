@@ -1,25 +1,14 @@
-# 개미 입력
-n1, n2 = map(int, input().split())
-ants1 = list(input())
-ants2 = list(input())
-dir = {}
-t = int(input())
+# 왕실의 나이트
+input_data = input()
+row = int(input_data[1])
+column = int(ord(input_data[0])) - int(ord('a')) + 1
+steps = [(-2, 1), (-1, 2), (1, -2), (2, -1), (2, 1), (1, 2), (-1, -2), (-2, -1)]
+result = 0
 
-for ant in ants1:
-    dir[ant] = 0
-for ant in ants2:
-    dir[ant] = 1
+for step in steps:
+    next_row = row + step[0]
+    next_column = column + step[1]
+    if next_row >= 1 and next_column >= 1 and next_row <= 8 and next_column <= 8:
+        result += 1
 
-ants1.reverse()
-ants1.extend(ants2)
-
-for _ in range(t):
-    i = 0
-    while i < len(ants1) - 1:
-        if dir[ants1[i]] == 0 and dir[ants1[i+1]] == 1:
-            ants1[i], ants1[i+1] = ants1[i+1], ants1[i]
-            i += 1
-        i += 1
-
-for ant in ants1:
-    print(ant, end='')
+print(result)
