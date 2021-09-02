@@ -1,7 +1,7 @@
 # 누적합 풀이
 n, m = map(int, input().split())
 array = []
-dp = [[0] * (m + 1) for _ in range(n + 1)]
+dp = [[0] * (m + 1) for _ in range(n+1)]
 for _ in range(n):
     array.append(list(map(int, input().split())))
 
