@@ -1,6 +1,6 @@
-n = int(input())
+from itertools import product
 
-for _ in range(n):
-    arr = list(map(list, input().split()))
-    for i in arr:
-        print("".join(i[::-1]), end=" ")
+data = ['A', 'B', 'C'] # 데이터 준비
+result = list(product(data, repeat=2)) # 모든 순열 구하기
+
+print(result)
