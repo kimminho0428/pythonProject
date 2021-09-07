@@ -4,7 +4,6 @@ def solution(str1, str2):
     # 대문자, 소문자를 따로 구분하지 않으므로 전부 소문자로 구성
     str1_low = str1.lower()
     str2_low = str2.lower()
-
     str1_lst = []
     str2_lst = []
 
