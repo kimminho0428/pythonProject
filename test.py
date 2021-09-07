@@ -1,32 +1,25 @@
-from collections import Counter
+def solution(cacheSize, cities):
+    # 캐시저장하는 배열생성
+    cache = []
+    time = 0
+    for city in cities:
+        # 도시이름은 대문자, 소문자를 구분하지 않으므로 소문자로 구성
+        city = city.lower()
+        if cacheSize:
+            # 캐시배열에 입력도시가 없으면 캐시배열에 도시를 추가하고 시간은 5초 증가, 캐시사이즈를 초과하면 첫번째 캐시 꺼내기
+            if not city in cache:
+                if len(cache) == cacheSize:
+                    cache.pop(0)
+                cache.append(city)
+                time += 5
+            # 캐시배열에 이미 입력도시가 있으면 그 입력도시의 인덱스를 찾아서 꺼내고 캐시배열에 추가, 시간은 1초 증가
+            else:
+                cache.pop(cache.index(city))
+                cache.append(city)
+                time += 1
+        # 캐시사이즈가 0인 경우 캐시미스가 발생하여 시간에 5초만 계속 더해준다.
+        else:
+            time += 5
+    return time
 
-def solution(str1, str2):
-    # 대문자, 소문자를 따로 구분하지 않으므로 전부 소문자로 구성
-    str1_low = str1.lower()
-    str2_low = str2.lower()
-    str1_lst = []
-    str2_lst = []
-
-    # 문자열을 2개를 확인하면서 알파벳인지 체크
-    for i in range(len(str1_low) - 1):
-        if str1_low[i].isalpha() and str1_low[i+1].isalpha():
-            str1_lst.append(str1_low[i] + str1_low[i+1])
-    for j in range(len(str1_low) - 1):
-        if str2_low[j].isalpha() and str2_low[j+1].isalpha():
-            str2_lst.append(str2_low[j] + str2_low[j+1])
-
-    # 각 문자열의 개수를 key, value 형태의 딕셔너리 형태로 카운트
-    Counter1 = Counter(str1_lst)
-    Counter2 = Counter(str2_lst)
-
-    # 원소값만 추출해 하나의 집합으로 만든다
-    inter = list((Counter1 & Counter2).elements())
-    union = list((Counter1 | Counter2).elements())
-
-    # 유사도를 계산
-    if len(inter) and len(union) == 0:
-        return 655536
-    else:
-        return int(len(inter) / len(union) * 65536)
-
-print(solution("FRANCE", "french"))
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"]))
