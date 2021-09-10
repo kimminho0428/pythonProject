@@ -1,18 +1,13 @@
-from collections import Counter
-n = int(input())
-array = []
-for _ in range(n):
-    array.append(int(input()))
-array.sort()
-
-# most_common()은 빈도수가 높은 순으로 리스트 안의 튜플형태로 반환해준다.
-k = Counter(array).most_common()
-# 만약 입력값이 하나면, 그게 최빈값이 되므로 예외처리
-if len(array) > 1:
-    # 최빈값의 빈도수를 비교하여, 2개이상의 최빈값이 있으면 두번째로 작은것을 출력
-    if k[0][1] == k[1][1]:
-        print(k[1][0])
+word = input()
+array = [0] * 10
+for i in range(len(word)):
+    num = int(word[i])
+    if num == 6 or num == 9:
+        if array[6] < array[9]:
+            array[6] += 1
+        else:
+            array[9] += 1
     else:
-        print(k[0][0])
-else:
-    print(array[0])
+        array[num] += 1
+
+print(max(array))
