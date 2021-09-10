@@ -9,6 +9,7 @@ def solution(progresses, speeds):
             speeds.pop(0)
             count += 1
 
+        # 첫번째가 100이 될 때까지 loop를 돌며 time을 늘린다.
         else:
             if count > 0:
                 answer.append(count)
