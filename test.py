@@ -1,18 +1,18 @@
-E, S, M = map(int, input().split())
-e, s, m = 1, 1, 1
-year = 1
+from collections import Counter
+n = int(input())
+array = []
+for _ in range(n):
+    array.append(int(input()))
+array.sort()
 
-while True:
-    if e == E and s == S and m == M:
-        print(year)
-        break
-    e += 1
-    s += 1
-    m += 1
-    if e == 16:
-        e = 1
-    if s == 29:
-        s = 1
-    if m == 20:
-        m = 1
-    year += 1
+# most_common()은 빈도수가 높은 순으로 리스트 안의 튜플형태로 반환해준다.
+k = Counter(array).most_common()
+# 만약 입력값이 하나면, 그게 최빈값이 되므로 예외처리
+if len(array) > 1:
+    # 최빈값의 빈도수를 비교하여, 2개이상의 최빈값이 있으면 두번째로 작은것을 출력
+    if k[0][1] == k[1][1]:
+        print(k[1][0])
+    else:
+        print(k[0][0])
+else:
+    print(array[0])
