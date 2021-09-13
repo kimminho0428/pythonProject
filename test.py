@@ -1,12 +1,13 @@
-def solution(numbers, target):
-    sup = [0]
-    for i in numbers:
-        sub = []
-        for j in sup:
-            sub.append(j+1)
-            sub.append(j-1)
-        sub = sub
-
-    return sup.count(target)
-
-print(solution([1, 1, 1, 1, 1], 3))
+from collections import deque
+n, k = map(int, input().split())
+q = deque(range(1, n+1))
+cnt = 0
+result = "<"
+while q:
+    cnt += 1
+    if cnt % k == 0:
+        result += str(q.popleft()) + ", "
+    else:
+        q.append(q.popleft())
+result = result[:-2] + ">"
+print(result)
