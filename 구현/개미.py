@@ -1,4 +1,3 @@
-
 N1, N2 = map(int, input().split())
 ants1 = list(input())
 ants2 = list(input())
