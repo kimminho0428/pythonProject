@@ -1,16 +1,44 @@
-def solution(priorities, location):
-   loc = [i for i in range(len(priorities))]
-   final_loc = []
+n = int(input())
+ans = 1
+candies = []
 
-   while len(priorities) != 0:
-       if priorities[0] == max(priorities):
-           final_loc.append(loc.pop(0))
-           priorities.pop(0)
-       else:
-           priorities.append(priorities.pop(0))
-           loc.append(loc.pop(0))
+for i in range(n):
+    temp = []
+    temp_str = input()
+    for j in range(n):
+        temp.append(temp_str[j])
+    candies.append(temp)
 
-   return final_loc.index(location) + 1
+def search():
+    global ans
+    for i in range(n):
+        cnt = 1
+        for j in range(n-1):
+            if candies[i][j] == candies[i][j+1]:
+                cnt += 1
+                ans = max(cnt, ans)
+            else:
+                cnt = 1
 
+    for i in range(n):
+        cnt = 1
+        for j in range(n-1):
+            if candies[j][i] == candies[j+1][i]:
+                cnt += 1
+                ans = max(cnt, ans)
+            else:
+                cnt = 1
 
-print(solution([2, 1, 3, 2], 2))
+for i in range(n):
+    for j in range(n-1):
+        candies[i][j], candies[i][j+1] = candies[i][j+1], candies[i][j]
+        search()
+        candies[i][j], candies[i][j + 1] = candies[i][j + 1], candies[i][j]
+
+for i in range(n):
+    for j in range(n-1):
+        candies[j][i], candies[j+1][i] = candies[j+1][i], candies[j][i]
+        search()
+        candies[j][i], candies[j + 1][i] = candies[j + 1][i], candies[j][i]
+
+print(ans)
