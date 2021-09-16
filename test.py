@@ -1,14 +1,16 @@
-n, k = map(int, input().split())
-medals = [list(map(int, input().split())) for _ in range(n)]
-medals.sort(key=lambda x:(x[1], x[2], x[3]), reverse=True)
+A, P = map(int, input().split())
+D = [A]
+index = 0
 
-for i in range(n):
-    if medals[i][0] == k:
-        idx = i
+while True:
+    current = str(D[index])
+    next = 0
+    for num_position in current:
+        next += int(num_position) ** P
+    D.append(next)
 
-for i in range(n):
-    if medals[idx][1:] == medals[i][1:]:
-        print(i+1)
+    if D.count(next) == 2:
+        next_index = D.index(next)
+        print(len(D[:next_index]))
         break
-
-
+    index += 1
