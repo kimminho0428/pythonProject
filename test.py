@@ -1,16 +1,16 @@
-A, P = map(int, input().split())
-D = [A]
-index = 0
+def solution(bridge_length, weight, truck_weights):
+    bridge = [0] * bridge_length
+    time = 0
 
-while True:
-    current = str(D[index])
-    next = 0
-    for num_position in current:
-        next += int(num_position) ** P
-    D.append(next)
+    while bridge:
+        time += 1
+        bridge.pop(0)
+        if truck_weights:
+            if truck_weights[0] + sum(bridge) <= weight:
+                bridge.append(truck_weights.pop(0))
+            else:
+                bridge.append(0)
 
-    if D.count(next) == 2:
-        next_index = D.index(next)
-        print(len(D[:next_index]))
-        break
-    index += 1
+    return time
+
+print(solution(2, 10, [7, 4, 5, 6]))
