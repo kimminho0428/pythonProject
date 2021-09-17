@@ -1,16 +1,17 @@
-def solution(bridge_length, weight, truck_weights):
-    bridge = [0] * bridge_length
-    time = 0
+from collections import deque
+def solution(prices):
+    answer = []
+    queue = deque(prices)
 
-    while bridge:
-        time += 1
-        bridge.pop(0)
-        if truck_weights:
-            if truck_weights[0] + sum(bridge) <= weight:
-                bridge.append(truck_weights.pop(0))
-            else:
-                bridge.append(0)
+    while queue:
+        price = queue.popleft()
+        sec = 0
+        for q in queue:
+            sec += 1
+            if price > q:
+                break
+        answer.append(sec)
 
-    return time
+    return answer
 
-print(solution(2, 10, [7, 4, 5, 6]))
+print(solution([1, 2, 3, 2, 3]))
