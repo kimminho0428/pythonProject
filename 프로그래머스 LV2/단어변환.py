@@ -1,5 +1,4 @@
 def solution(begin, target, words):
-    answer = 0
     # target이 words안에 없는 경우 0 리턴
     if target not in words:
         return 0
@@ -21,7 +20,6 @@ def solution(begin, target, words):
             elif diff == 1:
                 queue.append((w, depth+1))
 
-    return answer
 
 print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))
 print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log"]))
