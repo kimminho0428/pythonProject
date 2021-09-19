@@ -1,24 +1,25 @@
-def solution(begin, target, words):
-    # target이 words안에 없는 경우 0 리턴
-    if target not in words:
-        return 0
+def solution(tickets):
+    # 티켓을 출발 - 도착 순으로 경로 딕셔너리 생성
+    routes = dict()
+    for t in tickets:
+        if t[0] in routes:
+            routes[t[0]].append(t[1])
+        else:
+            routes[t[0]] = [t[1]]
+    # key 값마다 value를 역순으로 정렬
+    for k in routes.keys():
+        routes[k].sort(reverse=True)
 
-    # BFS로 현재 단어에서 한 문자만 바꿔서 변환할 수 있는 단어들을 참색
-    # 해당 단어들은 현재 단어 depth + 1을 depth로 가짐
-    # 만약 해당 단어들 중 target이 존재하면 depth를 바로 리턴
-    queue = []
-    queue.append((begin, 0))
-    while queue:
-        now, depth = queue.pop(0)
-        for w in words:
-            diff = 0
-            for i in range(len(w)):
-                if now[i] != w[i]:
-                    diff += 1
-            if (diff == 1) and (w == target):
-                depth += 1
-                return depth
-            elif diff == 1:
-                queue.append((w, depth+1))
-
-print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))
+    # 1번째 출발지는 "ICN"으로 고정
+    start = ["ICN"]
+    answer = []
+    while start:
+        stack = start[-1]
+        # answer에 담겨질 때는 start에 값이 꽉차고 routes에 값이 없을 때이므로 # answer에는 반대로 값이 들어가 있음
+        # answer에는 반대로 값이 들어가 있음
+        if stack not in routes or len(routes[stack]) == 0:
+            answer.append(start.pop())
+        else:
+            start.append(routes[stack].pop())
+    return answer[::-1]
+print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))

@@ -6,12 +6,12 @@ def solution(tickets):
             routes[t[0]].append(t[1])
         else:
             routes[t[0]] = [t[1]]
-    # print(routes)
+    print(routes)
 
     # key 값마다 value를 역순으로 정렬
     for k in routes.keys():
         routes[k].sort(reverse=True)
-    # print(routes)
+    print(routes)
 
     # 1번째 출발지는 "ICN"으로 고정
     start = ["ICN"]
