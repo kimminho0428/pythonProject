@@ -6,8 +6,6 @@ def solution(people, limit):
 
     # 보트는 2명씩만 탈 수 있고 무게 제한도 있음.
     q = deque(people)
-    w = 0
-    cnt = 0
     while q:
         if len(q) >= 2:
             if q[0] + q[-1] <= limit:
@@ -22,3 +20,5 @@ def solution(people, limit):
                 q.pop()
                 boat += 1
     return boat
+
+print(solution([70, 50, 80, 50], 3))

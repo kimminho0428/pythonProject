@@ -1,25 +1,24 @@
-def solution(tickets):
-    # 티켓을 출발 - 도착 순으로 경로 딕셔너리 생성
-    routes = dict()
-    for t in tickets:
-        if t[0] in routes:
-            routes[t[0]].append(t[1])
-        else:
-            routes[t[0]] = [t[1]]
-    # key 값마다 value를 역순으로 정렬
-    for k in routes.keys():
-        routes[k].sort(reverse=True)
+from collections import deque
+def solution(people, limit):
+    answer = 0
+    people.sort()
+    q = deque(people)
 
-    # 1번째 출발지는 "ICN"으로 고정
-    start = ["ICN"]
-    answer = []
-    while start:
-        stack = start[-1]
-        # answer에 담겨질 때는 start에 값이 꽉차고 routes에 값이 없을 때이므로 # answer에는 반대로 값이 들어가 있음
-        # answer에는 반대로 값이 들어가 있음
-        if stack not in routes or len(routes[stack]) == 0:
-            answer.append(start.pop())
+    while q:
+        if len(q) >= 2:
+            if q[0] + q[-1] <= limit:
+                q.pop()
+                q.popleft()
+                answer += 1
+            elif q[0] + q[-1] > limit:
+                q.pop()
+                answer += 1
         else:
-            start.append(routes[stack].pop())
-    return answer[::-1]
-print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))
+            if q[0] < limit:
+                q.pop()
+                answer += 1
+
+    return answer
+
+
+print(solution([70, 50, 80, 50], 100))
