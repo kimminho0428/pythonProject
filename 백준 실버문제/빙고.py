@@ -24,12 +24,16 @@ for _ in range(5):
             # 빙고 세주기
             bingo = 0
             for j in range(5):
+                # 가로빙고
                 if sum(check[j]) == 5:
                     bingo += 1
+                # 세로빙고
                 if sum([k[j] for k in check]) == 5:
                     bingo += 1
+            # 오른쪽 위에서 대각 빙고
             if check[0][4] + check[1][3] + check[2][2] + check[3][1] + check[4][0] == 5:
                 bingo += 1
+            # 왼쪽 위에서 대각 빙고
             if check[0][0] + check[1][1] + check[2][2] + check[3][3] + check[4][4] == 5:
                 bingo += 1
 

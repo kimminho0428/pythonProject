@@ -1,24 +1,17 @@
-from collections import deque
-def solution(people, limit):
+def solution(n, costs):
     answer = 0
-    people.sort()
-    q = deque(people)
+    costs.sort(key=lambda x:x[2])
+    connect = set([costs[0][0]])
 
-    while q:
-        if len(q) >= 2:
-            if q[0] + q[-1] <= limit:
-                q.pop()
-                q.popleft()
-                answer += 1
-            elif q[0] + q[-1] > limit:
-                q.pop()
-                answer += 1
-        else:
-            if q[0] < limit:
-                q.pop()
-                answer += 1
+    while len(connect) != n:
+        for cost in costs:
+            if cost[0] in connect and cost[1] in connect:
+                continue
+            if cost[0] in connect or cost[1] in connect:
+                connect.update([cost[0], cost[1]])
+                answer += cost[2]
+                break
 
     return answer
 
-
-print(solution([70, 50, 80, 50], 100))
+print(solution(4, [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]))
