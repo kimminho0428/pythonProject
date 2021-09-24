@@ -1,17 +1,16 @@
-def solution(n, costs):
-    answer = 0
-    costs.sort(key=lambda x:x[2])
-    connect = set([costs[0][0]])
+A, P = map(int, input().split())
+D = [A]
+index = 0
+while True:
+    current = str(D[index])
+    next = 0
+    for position_num in current:
+        next += int(position_num) ** P
+    D.append(next)
 
-    while len(connect) != n:
-        for cost in costs:
-            if cost[0] in connect and cost[1] in connect:
-                continue
-            if cost[0] in connect or cost[1] in connect:
-                connect.update([cost[0], cost[1]])
-                answer += cost[2]
-                break
+    if D.count(next) == 2:
+        next_index = D.index(next)
+        print(len(D[:next_index]))
+        break
 
-    return answer
-
-print(solution(4, [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]))
+    index += 1
