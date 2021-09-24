@@ -6,7 +6,6 @@ board = [[0] * n for _ in range(n)]
 dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
 result = [0, 0]
-
 y, x, dirs, cnt = 0, 0, 0, n * n
 
 while True:
@@ -31,6 +30,11 @@ while True:
 for l in board:
     print(*l)
 print(*result)
+
+
+
+
+
 
 
 
