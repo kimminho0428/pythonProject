@@ -9,3 +9,5 @@ def solution(n, lost, reserve):
     return n - len(set_lost)
 
 print(solution(5, [2, 4], [1, 3, 5]))
+print(solution(5, [2, 4], [3]))
+print(solution(3, [3], [1]))
