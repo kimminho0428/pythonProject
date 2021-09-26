@@ -1,13 +1,16 @@
-def solution(n, lost, reserve):
-    set_reserve = set(reserve) - set(lost)
-    set_lost = set(lost) - set(reserve)
-    for i in set_reserve:
-        if i - 1 in set_lost:
-            set_lost.remove(i - 1)
-        elif i + 1 in set_lost:
-            set_lost.remove(i + 1)
-    return n - len(set_lost)
+n, m = map(int, input().split())
+data = []
+for _ in range(n):
+    data.append(list(map(int, input())))
+dap = 1
+for i in range(n - 1):
+    for j in range(m - 1):
+        k = 1
+        while 1:
+            if (i + k) == n or (j + k) == m:
+                break
+            if data[i][j] == data[i + k][j] and data[i][j] == data[i][j + k] and data[i][j] == data[i + k][j + k]:
+                dap = max(dap, (k + 1) * (k + 1))
+            k += 1
 
-print(solution(5, [2, 4], [1, 3, 5]))
-print(solution(5, [2, 4], [3]))
-print(solution(3, [3], [1]))
+print(dap)
