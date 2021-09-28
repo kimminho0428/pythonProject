@@ -1,14 +1,24 @@
-n, k = map(int, input().split())
-count = 0
-while n >= k:
-    while n % k != 0:
-        n -= 1
-        count += 1
-    n //= k
-    count += 1
+def solution(name):
+    answer = 0
+    make_name = [min(ord(i) - ord('A'), ord('Z') - ord(i) + 1) for i in name]
+    idx, answer = 0, 0
 
-while n > 1:
-    n -= 1
-    count += 1
+    while True:
+        answer += make_name[idx]
+        make_name[idx] = 0
+        if sum(make_name) == 0:
+            break
+        left, right = 1, 1
 
-print(count)
+        while make_name[idx - left] == 0:
+            left += 1
+        while make_name[idx + right] == 0:
+            right += 1
+
+        answer += left if left < right else right
+        idx += -left if left < right else right
+
+    return answer
+
+
+print(solution("JEROEN"))
