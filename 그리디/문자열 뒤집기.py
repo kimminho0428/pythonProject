@@ -13,7 +13,7 @@ print(solution("1000110"))  # 2
 print(solution("0110110110111111110111111"))  # 5
 print(solution("0" * int(1e7)))  # 0
 
-#2번째 방법
+# 2번째 방법
 data = input()
 count0 = 0
 count1 = 0
@@ -21,10 +21,10 @@ if data[0] == '1':
     count0 += 1
 else:
     count1 += 1
-for i in range(len(data)-1):
-   if data[i] != data[i+1]:
-      if data[i+1] == '1':
-        count0 += 1
-      else:
-        count1 += 1
-print(min(count0,count1))
+for i in range(len(data) - 1):
+    if data[i] != data[i + 1]:
+        if data[i + 1] == '1':
+            count0 += 1
+        else:
+            count1 += 1
+print(min(count0, count1))
