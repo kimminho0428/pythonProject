@@ -1,11 +1,12 @@
-def solution(brown, yellow):
-    s = brown + yellow
-    for i in range(s, 2, -1):
-        if s % i == 0:
-            a = s // i
-            if yellow == (i-2) * (a-2):
-                return [i, a]
+def solution(array, commands):
+    answer = []
+    for command in commands:
+        new_array = array[command[0]-1:command[1]]
+        new_array.sort()
+        answer.append(new_array[command[2]-1])
 
-print(solution(10, 2))
-print(solution(8, 1))
-print(solution(24, 24))
+
+    return answer
+
+
+print(solution([1, 5, 2, 6, 3, 7, 4], [[2, 5, 3], [4, 4, 1], [1, 7, 3]]))
