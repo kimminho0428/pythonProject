@@ -1,9 +1,12 @@
-def solution(numbers):
-    numbers_str = list(map(str, numbers))
-    numbers_str.sort(key=lambda x: x * 3, reverse=True)
+def solution(citations):
+    citations.sort()
+    article_count = len(citations)
 
-    return str(int(''.join(numbers_str)))
+    for i in range(article_count):
+        if citations[i] >= article_count - i:
+            return article_count - i
 
-print(solution([6, 10, 2]))
-print(solution([3, 30, 34, 5, 9]))
-print(solution([0, 0, 0, 0]))
+    return 0
+
+
+print(solution([3, 0, 6, 1, 5]))
