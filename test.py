@@ -1,12 +1,9 @@
-def solution(array, commands):
-    answer = []
-    for command in commands:
-        new_array = array[command[0]-1:command[1]]
-        new_array.sort()
-        answer.append(new_array[command[2]-1])
+def solution(numbers):
+    numbers_str = list(map(str, numbers))
+    numbers_str.sort(key=lambda x: x * 3, reverse=True)
 
+    return str(int(''.join(numbers_str)))
 
-    return answer
-
-
-print(solution([1, 5, 2, 6, 3, 7, 4], [[2, 5, 3], [4, 4, 1], [1, 7, 3]]))
+print(solution([6, 10, 2]))
+print(solution([3, 30, 34, 5, 9]))
+print(solution([0, 0, 0, 0]))

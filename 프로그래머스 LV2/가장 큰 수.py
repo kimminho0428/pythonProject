@@ -1,11 +1,12 @@
 def solution(numbers):
     # 0. key point
-    numbers_str = [str(num) for num in numbers]  # 1. 사전 값으로 정렬하기
-    numbers_str.sort(key=lambda num: num * 3, reverse=True)  # 2. number는 1000이하의 숫자이므로 x3(반복)한 값으로 비교
+    numbers_str = list(map(str, numbers))  # 1. int형의 list를 map을 사용하여 string으로 치환한 뒤, list로 변환한다.
+    numbers_str.sort(key=lambda num: num * 3, reverse=True)  # 2. num의 인수값이 1000 이하이므로 3자리수로 맞춘 뒤, 비교한다.
 
     return str(int(''.join(numbers_str)))
-    # 만약 numbers=[0,0,0,0] 이라면 0 이 나와야 한다.
-    # join한 값을 int로 만들어 준 후 원하는 return값이 str이기 때문에 다시 str로 변환한다.
+    # 이를 reverse = True를 통해 내림차순 해주면 6,2,10이 된다. 이것을 ‘‘.join(num)을 통해 문자열을 합쳐주면 된다.
+    # int로 변환한 뒤, 또 str로 변환해주는 이유?
+    # 모든 값이 0일 때(즉, ‘000’을 처리하기 위해) int로 변환한 뒤, 다시 str로 변환한다.
 
 
 print(solution([6, 10, 2]))  # result : 6210
