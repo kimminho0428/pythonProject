@@ -1,12 +1,9 @@
-def solution(citations):
-    citations.sort()
-    article_count = len(citations)
+import collections
 
-    for i in range(article_count):
-        if citations[i] >= article_count - i:
-            return article_count - i
+def solution(participant, completion):
+    answer = collections.Counter(participant) - collections.Counter(completion)
+    return list(answer.keys())[0]
 
-    return 0
-
-
-print(solution([3, 0, 6, 1, 5]))
+print(solution(["leo", "kiki", "eden"], ["eden", "kiki"]))
+print(solution(["marina", "josipa", "nikola", "vinko", "filipa"], ["josipa", "filipa", "marina", "nikola"]))
+print(solution(["mislav", "stanko", "mislav", "ana"], ["stanko", "ana", "mislav"]))
