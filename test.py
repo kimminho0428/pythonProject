@@ -1,9 +1,16 @@
-import collections
+def solution(phone_book):
+    answer = True
+    phone_book.sort()
 
-def solution(participant, completion):
-    answer = collections.Counter(participant) - collections.Counter(completion)
-    return list(answer.keys())[0]
+    for i in range(len(phone_book) - 1):
+        if len(phone_book[i]) < len(phone_book[i+1]):
+            if phone_book[i+1][:len(phone_book[i])] == phone_book[i]:
+                answer = False
+                break
 
-print(solution(["leo", "kiki", "eden"], ["eden", "kiki"]))
-print(solution(["marina", "josipa", "nikola", "vinko", "filipa"], ["josipa", "filipa", "marina", "nikola"]))
-print(solution(["mislav", "stanko", "mislav", "ana"], ["stanko", "ana", "mislav"]))
+    return answer
+
+
+print(solution(["119", "97674223", "1195524421"]))
+print(solution(["123", "456", "789"]))
+print(solution(["12", "123", "1235", "567", "88"]))
