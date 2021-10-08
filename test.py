@@ -1,16 +1,20 @@
-def solution(phone_book):
-    answer = True
-    phone_book.sort()
+def solution(clothes):
+    answer = 1
+    closet = {}
 
-    for i in range(len(phone_book) - 1):
-        if len(phone_book[i]) < len(phone_book[i+1]):
-            if phone_book[i+1][:len(phone_book[i])] == phone_book[i]:
-                answer = False
-                break
+    # 같은 종류의 옷끼리 묶어서 사전에 저장
+    for cloth in clothes:
+        if cloth[1] in closet.keys():
+            closet[cloth[1]].append(cloth[0])
+        else:
+            closet[cloth[1]] = [cloth[0]]
 
-    return answer
+    # 경우의 수 구하기
+    for value in closet.values():
+        answer *= len(value) + 1
 
+    # 아무것도 입지 않은 경우 하나 제외
+    return answer - 1
 
-print(solution(["119", "97674223", "1195524421"]))
-print(solution(["123", "456", "789"]))
-print(solution(["12", "123", "1235", "567", "88"]))
+print(solution([["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]]))
+print(solution([["crowmask", "face"], ["bluesunglasses", "face"], ["smoky_makeup", "face"]]))
