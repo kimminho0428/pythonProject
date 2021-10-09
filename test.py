@@ -1,20 +1,23 @@
-def solution(clothes):
-    answer = 1
-    closet = {}
+def solution(genres, plays):
+    answer = []
+    playDic = {}  # {장르 : 총 재생 횟수}
+    dic = {}  # {장르 : [(플레이 횟수, 고유번호)]}
 
-    # 같은 종류의 옷끼리 묶어서 사전에 저장
-    for cloth in clothes:
-        if cloth[1] in closet.keys():
-            closet[cloth[1]].append(cloth[0])
-        else:
-            closet[cloth[1]] = [cloth[0]]
+    # 해시 만들기
+    for i in range(len(genres)):
+        playDic[genres[i]] = playDic.get(genres[i], 0) + plays[i]
+        dic[genres[i]] = dic.get(genres[i], []) + [(plays[i], i)]
 
-    # 경우의 수 구하기
-    for value in closet.values():
-        answer *= len(value) + 1
+    # 재생 횟수 내림차순으로 장르별 정렬
+    genreSort = sorted(playDic.items(), key=lambda x: x[1], reverse=True)
 
-    # 아무것도 입지 않은 경우 하나 제외
-    return answer - 1
+    # 재생 횟수 내림차순, 인덱스 오름차순 정렬
+    # 장르별로 최대 2개 선택
+    for (genre, totalPlay) in genreSort:
+        dic[genre] = sorted(dic[genre], key=lambda x: (-x[0], x[1]))
+        answer += [idx for (play, idx) in dic[genre][:2]]
 
-print(solution([["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]]))
-print(solution([["crowmask", "face"], ["bluesunglasses", "face"], ["smoky_makeup", "face"]]))
+    return answer
+
+
+print(solution(["classic", "pop", "classic", "classic", "pop"], [500, 600, 150, 800, 2500]))
