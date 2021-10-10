@@ -1,7 +1,7 @@
 def solution(scoville, K):
     import heapq
     answer = 0
-    heapq.heapify(scoville)  # list to heapq
+    heapq.heapify(scoville)  # 리스트를 힙으로 만들어준다.
 
     while scoville[0] < K:  # 가장 작은 수가 기준보다 낮다면 계속
         if len(scoville) > 1:
