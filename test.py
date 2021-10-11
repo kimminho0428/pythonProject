@@ -1,16 +1,16 @@
-def solution(scoville, K):
-    import heapq
-    answer = 0
-    heapq.heapify(scoville)
+def solution(routes):
+    answer = 1
+    routes.sort(key=lambda x: x[0], reverse=True)
+    now = routes[0][0]
 
-    while scoville[0] < K:
-        if len(scoville) > 1:
-            answer += 1
-            first = heapq.heappop(scoville)
-            second = heapq.heappop(scoville)
-            heapq.heappush(scoville, first + second * 2)
+    for i in routes[1:]:
+        if i[1] >= now:
+            continue
         else:
-            return -1
+            now = i[0]
+            answer += 1
+
     return answer
 
-print(solution([1, 2, 3, 9, 10, 12], 7))
+
+print(solution([[-20, 15], [-14, -5], [-18, -13], [-5, -3]]))
