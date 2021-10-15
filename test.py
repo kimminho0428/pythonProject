@@ -1,24 +1,27 @@
-import heapq
+def solution(lottos, win_nums):
+    answer = []
 
-def solution(operations):
-    heap = []
-    for operation in operations:
-        o = operation.split(' ')
+    count = 7
 
-        if o[0] == 'I':
-            heapq.heappush(heap, int(o[1]))
-        else:
-            if len(heap) > 0:
-                if o[1] == '1':
-                    heap.pop(heap.index(heapq.nlargest(1, heap)[0]))
-                else:
-                    heapq.heappop(heap)
-
-    if heap:
-        return [heapq.nlargest(1, heap)[0], heapq.nsmallest(1, heap)[0]]
+    for i in lottos:
+        if i == 0:
+            count -= 1
+        elif i in win_nums:
+            count -= 1
+    if count > 6:
+        answer.append(6)
     else:
-        return [0, 0]
+        answer.append(count)
 
+    count = 7
+    for j in lottos:
+        if j in win_nums:
+            count -= 1
+    if count > 6:
+        answer.append(6)
+    else:
+        answer.append(count)
 
-print(solution(["I 7", "I 5", "I -5", "D -1"]))
-print(solution(["I 16", "D 1"]))
+    return answer
+
+print(solution([44, 1, 0, 0, 31, 25], [31, 10, 45, 1, 6, 19]))

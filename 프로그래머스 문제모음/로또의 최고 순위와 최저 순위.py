@@ -12,6 +12,7 @@ def solution(lottos, win_nums):
         answer.append(6)
     else:
         answer.append(count)
+
     count = 7
 
     # 지워진 숫자가 모두 틀릴 경우(최저 순위)
