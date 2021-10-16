@@ -1,27 +1,18 @@
-def solution(lottos, win_nums):
+from collections import deque
+
+def solution(prices):
     answer = []
+    queue = deque(prices)
 
-    count = 7
-
-    for i in lottos:
-        if i == 0:
-            count -= 1
-        elif i in win_nums:
-            count -= 1
-    if count > 6:
-        answer.append(6)
-    else:
-        answer.append(count)
-
-    count = 7
-    for j in lottos:
-        if j in win_nums:
-            count -= 1
-    if count > 6:
-        answer.append(6)
-    else:
-        answer.append(count)
+    while queue:
+        price = queue.popleft()
+        sec = 0
+        for q in queue:
+            sec += 1
+            if price > q:
+                break
+        answer.append(sec)
 
     return answer
 
-print(solution([44, 1, 0, 0, 31, 25], [31, 10, 45, 1, 6, 19]))
+print(solution([1, 2, 3, 2, 3]))
