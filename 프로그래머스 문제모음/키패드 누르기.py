@@ -60,3 +60,14 @@ def solution(numbers, hand):
 print(solution([1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5], "right"))
 print(solution([7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2], "left"))
 print(solution([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "right"))
+
+# zip() 함수를 활용하면 여러 그룹의 데이터를 루프를 한 번만 돌면서 처리할 수 있는데요.
+# 가변 인자를 받기 때문에 2개 이상의 인자를 넘겨서 병렬 처리를 할 수 있습니다.
+#  for number, upper, lower in zip("12345", "ABCDE", "abcde"):
+# ...     print(number, upper, lower)
+# ...
+# 1 A a
+# 2 B b
+# 3 C c
+# 4 D d
+# 5 E e
