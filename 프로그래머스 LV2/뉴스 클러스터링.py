@@ -11,6 +11,7 @@ def solution(str1, str2):
     for i in range(len(str1_low) - 1):
         if str1_low[i].isalpha() and str1_low[i + 1].isalpha():
             str1_lst.append(str1_low[i] + str1_low[i + 1])
+
     for j in range(len(str2_low) - 1):
         if str2_low[j].isalpha() and str2_low[j + 1].isalpha():
             str2_lst.append(str2_low[j] + str2_low[j + 1])
@@ -18,11 +19,11 @@ def solution(str1, str2):
     # 각 문자열의 개수를 key, value 형태의 딕셔너리 형태로 카운트
     Counter1 = Counter(str1_lst)
     Counter2 = Counter(str2_lst)
-    
-    # 원소값만 추출해 하나의 집합으로 만든다
+
+    # 원소값만 추출해 하나의 집합으로 만든다. elments메소드를 통해 카운트된 숫자만큼의 요소를 리턴받음
     inter = list((Counter1 & Counter2).elements())
     union = list((Counter1 | Counter2).elements())
-    
+
     # 유사도를 계산
     if len(union) == 0 and len(inter) == 0:
         return 65536

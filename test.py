@@ -1,28 +1,39 @@
-def solution(N, stages):
-    answer = []
-    length = len(stages)
+def solution(s):
+   answer = len(s)  # 최소 길이
 
-    # 스테이지 번호를 1부터 N까지 증가시키며
-    for i in range(1, N + 1):
-        # 해당 스테이지에 머물러 있는 사람의 수 계산
-        count = stages.count(i)
+   # 자르는 단위 늘려가며 최소 길이 계산
+   for slice in range(1, len(s) // 2 + 1):
+      # 압축된 문자열
+      result = ""
+      # 반복되는 횟수
+      count = 1
+      # 자른 문자열
+      compare = s[0:slice]
 
-        # 실패율 계산
-        if length == 0:
-            fail = 0
-        else:
-            fail = count / length
+      # 압축된 문자열 구하기
+      for i in range(slice, len(s), slice):
+         # 문자열이 반복되는 경우
+         if compare == s[i:i+slice]:
+             count += 1
+         # 더 이상 압축할 수 없는 경우
+         else:
+             if count == 1:
+                 result += compare
+                 compare = s[i:i+slice]
+             else:
+                 result += (str(count) + compare)
+                 count = 1
+                 compare = s[i:i+slice]
 
-        # 리스트에 (스테이지 번호, 실패율) 원소 삽입
-        answer.append((i, fail))
-        length -= count
+      # 나머지 문자열 처리
+      if count == 1:
+          result += compare
+      else:
+          result += (str(count) + compare)
 
-    # 실패율을 기준으로 각 스테이지를 내림차순 정렬
-    answer = sorted(answer, key=lambda t: t[1], reverse=True)
+      # 최소 길이 계산
+      answer = min(answer, len(result))
 
-    # 정렬된 스테이지 번호 출력
-    answer = [i[0] for i in answer]
-    return answer
+   return answer
 
-
-print(solution(5, [2, 1, 2, 6, 2, 4, 3, 3]))
+print(solution("aabbaccc"))
