@@ -1,39 +1,27 @@
-def solution(s):
-   answer = len(s)  # 최소 길이
+def solution(n):
+    answer = []
+    res = [[0] * n for _ in range(n)]
+    num = 1
+    x, y = -1, 0
 
-   # 자르는 단위 늘려가며 최소 길이 계산
-   for slice in range(1, len(s) // 2 + 1):
-      # 압축된 문자열
-      result = ""
-      # 반복되는 횟수
-      count = 1
-      # 자른 문자열
-      compare = s[0:slice]
+    for i in range(n):
+        for j in range(i, n):
+            if i % 3 == 0:
+                x += 1
+            elif i % 3 == 1:
+                y += 1
+            elif i % 3 == 2:
+                x -= 1
+                y -= 1
 
-      # 압축된 문자열 구하기
-      for i in range(slice, len(s), slice):
-         # 문자열이 반복되는 경우
-         if compare == s[i:i+slice]:
-             count += 1
-         # 더 이상 압축할 수 없는 경우
-         else:
-             if count == 1:
-                 result += compare
-                 compare = s[i:i+slice]
-             else:
-                 result += (str(count) + compare)
-                 count = 1
-                 compare = s[i:i+slice]
+            res[x][y] = num
+            num += 1
 
-      # 나머지 문자열 처리
-      if count == 1:
-          result += compare
-      else:
-          result += (str(count) + compare)
+    for i in res:
+        for j in i:
+            if j != 0:
+                answer.append(j)
 
-      # 최소 길이 계산
-      answer = min(answer, len(result))
+    return answer
 
-   return answer
-
-print(solution("aabbaccc"))
+print(solution(4))

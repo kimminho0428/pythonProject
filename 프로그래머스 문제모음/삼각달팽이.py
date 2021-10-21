@@ -32,3 +32,5 @@ def solution(n):
     return answer
 
 print(solution(4))
+print(solution(5))
+print(solution(6))
