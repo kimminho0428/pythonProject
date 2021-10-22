@@ -1,27 +1,22 @@
-def solution(n):
-    answer = []
-    res = [[0] * n for _ in range(n)]
-    num = 1
-    x, y = -1, 0
+def solution(phone_number):
+    answer = 0
 
-    for i in range(n):
-        for j in range(i, n):
-            if i % 3 == 0:
-                x += 1
-            elif i % 3 == 1:
-                y += 1
-            elif i % 3 == 2:
-                x -= 1
-                y -= 1
-
-            res[x][y] = num
-            num += 1
-
-    for i in res:
-        for j in i:
-            if j != 0:
-                answer.append(j)
+    if len(phone_number) == 11 and phone_number not in '-' and phone_number[0] in '0' and phone_number[1] in '1' \
+            and phone_number[2] in '0':
+        answer = 2
+    elif len(phone_number) == 13 and phone_number[3] in '-' and phone_number[8] in '-':
+        answer = 1
+    elif len(phone_number) == 16 and phone_number[0] in '+' and phone_number[1] in '8' and phone_number[2] in '2'\
+            and phone_number[3] in '-' and phone_number[4] in '1' and phone_number[5] in '0' and phone_number[6] in '-'\
+            and phone_number[11] in '-':
+        answer = 3
+    else:
+        answer = -1
 
     return answer
 
-print(solution(4))
+print(solution("01012345678"))
+print(solution("010-1212-3333"))
+print(solution("+82-10-3434-2323"))
+print(solution("+82-010-3434-2323"))
+
