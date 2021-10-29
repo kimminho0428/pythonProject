@@ -1,26 +1,20 @@
-def solution(tickets):
-    answer = []
+def dfs(x, y, graph):
+    if x <= -1 or x >= len(graph) or y <= -1 or y >= len(graph):
+        return False
+    if graph[x][y] == 0:
+        graph[x][y] = 1
+        dfs(x-1, y)
+        dfs(x+1, y)
+        dfs(x, y-1)
+        dfs(x, y+1)
+        return True
+    return False
 
-    routes = dict()
+    result = 0
+    for i in range(x):
+        for j in range(y):
+            if dfs(i, j) == True:
+                result += 1
 
-    for t in tickets:
-        if t[0] in routes:
-            routes[t[0]].append(t[1])
-        else:
-            routes[t[0]] = [t[1]]
+print(dfs(3, 3, [[0, 0, 1], [0, 1, 0], [1, 0, 1]]))
 
-    for k in routes.keys():
-        routes[k].sort(reverse=True)
-
-    start = ["ICN"]
-    while start:
-        stack = start[-1]
-        if stack not in routes or len(routes[stack]) == 0:
-            answer.append(start.pop())
-        else:
-            start.append(routes[stack].pop())
-
-
-    return answer[::-1]
-
-print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL", "SFO"]]))
