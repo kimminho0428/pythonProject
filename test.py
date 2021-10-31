@@ -1,29 +1,28 @@
 from collections import deque
 
-n, m = map(int, input().split())
-graph = []
-for i in range(n):
-    graph.append(list(map(int, input())))
+n, m, k, x = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
+for i in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+distance = [-1] * (n + 1)
+distance[x] = 0
 
-def bfs(x, y):
-    queue = deque()
-    queue.append((x, y))
-    while queue:
-        x, y = queue.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if nx < 0 or ny < 0 or nx >= n or ny >= m:
-                continue
-            if graph[nx][ny] == 0:
-                continue
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y] + 1
-                queue.append((nx, ny))
+q = deque([x])
 
-    return graph[n-1][m-1]
+while q:
+    now = q.popleft()
+    for next_node in graph[now]:
+        if distance[next_node] == -1:
+            distance[next_node] = distance[now] + 1
+            q.append(next_node)
 
-print(bfs(0, 0))
+check = False
+for i in range(1, n+1):
+    if distance[i] == k:
+        print(i)
+        check = True
+
+if check == False:
+    print(-1)
