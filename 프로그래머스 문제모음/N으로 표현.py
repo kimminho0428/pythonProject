@@ -15,7 +15,6 @@ def solution(N, number):
         if number in temp:
             return i
         dp.append(list(set(temp)))
-
     return -1
 
 print(solution(5, 12))
