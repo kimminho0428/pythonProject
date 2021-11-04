@@ -7,4 +7,4 @@ def solution(n):
     return answer
 
 
-print(solution(1))
+print(solution(3))
