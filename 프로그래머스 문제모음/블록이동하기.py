@@ -31,7 +31,6 @@ def get_next_pos(pos, board):
     # 다음에 갈 수 있는 위치들 모두 반환
     return next_pos
 
-
 def solution(board):
     n = len(board)
     # 예외처리의 편의를 위하여 주어진 위치 최외곽을 1로 채운 new_board 생성
