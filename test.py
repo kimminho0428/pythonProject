@@ -15,7 +15,7 @@ def solution(n, computers):
             for i in range(n):
                 if visited[i] == 0 and computers[node][i] == 1:
                     bfs.append(i)
-                    visited[i] == 1
+                    visited[i] = 1
 
         answer += 1
 
