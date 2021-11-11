@@ -1,25 +1,25 @@
-def solution(n, computers):
-    answer = 0
-    bfs = []
-    visited = [0] * n
+def solution(tickets):
+    routes = dict()
 
-    while 0 in visited:
-        x = visited.index(0)
-        bfs.append(x)
-        visited[x] = 1
+    for t in tickets:
+        if t[0] in routes:
+            routes[t[0]].append(t[1])
+        else:
+            routes[t[0]] = [t[1]]
 
-        while bfs:
-            node = bfs.pop(0)
-            visited[node] = 1
+    for k in routes.keys():
+        routes[k].sort(reverse=True)
 
-            for i in range(n):
-                if visited[i] == 0 and computers[node][i] == 1:
-                    bfs.append(i)
-                    visited[i] = 1
+    start = ["ICN"]
+    answer = []
+    while start:
+        stack = start[-1]
+        if stack not in routes or len(routes[stack]) == 0:
+            answer.append(start.pop())
+        else:
+            start.append(routes[stack].pop())
 
-        answer += 1
+    return answer[::-1]
 
 
-    return answer
-
-print(solution(3, [[1, 1, 0], [1, 1, 0], [0, 0, 1]]))
+print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))
