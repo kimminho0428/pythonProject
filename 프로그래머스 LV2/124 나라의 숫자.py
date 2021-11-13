@@ -6,5 +6,4 @@ def solution(n):
         n //= 3
     return answer
 
-
 print(solution(3))
