@@ -21,4 +21,6 @@ def solution(tickets):
 
     return answer[::-1]
 
+
+
 print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))
