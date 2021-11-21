@@ -1,26 +1,15 @@
-def solution(tickets):
-    routes = dict()
+def solution(n, lost, reserve):
+    answer = 0
+    set_lost = set(lost) - set(reserve)
+    set_reserve = set(reserve) - set(lost)
 
-    for t in tickets:
-        if t[0] in routes:
-            routes[t[0]].append(t[1])
-        else:
-            routes[t[0]] = [t[1]]
+    for i in set_reserve:
+        if i-1 in set_lost:
+            set_lost.remove(i-1)
+        elif i+1 in set_lost:
+            set_lost.remove(i+1)
 
-    for k in routes.keys():
-        routes[k].sort(reverse=True)
+    return n - len(set_lost)
 
-    start = ["ICN"]
-    answer = []
-    while start:
-        stack = start[-1]
-        if stack not in routes or len(routes[stack]) == 0:
-            answer.append(start.pop())
-        else:
-            start.append(routes[stack].pop())
-
-    return answer[::-1]
-
-
-
-print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))
+print(solution(5, [2, 4], [1, 3, 5]	))
+print(solution(5, [2, 4], [3]))
