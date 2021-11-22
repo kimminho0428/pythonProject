@@ -1,15 +1,20 @@
-def solution(n, lost, reserve):
-    answer = 0
-    set_lost = set(lost) - set(reserve)
-    set_reserve = set(reserve) - set(lost)
+def solution(name):
+    make_name = [min(ord(i) - ord('A'), ord('Z') - ord(i) + 1) for i in name]
+    idx, answer = 0, 0
+    while True:
+        answer += make_name[idx]
+        make_name[idx] = 0
+        if sum(make_name) == 0:
+            break
+        left, right = 1, 1
+        while make_name[idx - left] == 0:
+            left += 1
+        while make_name[idx + right] == 0:
+            right += 1
+        answer += left if left < right else right
+        idx += -left if left < right else right
 
-    for i in set_reserve:
-        if i-1 in set_lost:
-            set_lost.remove(i-1)
-        elif i+1 in set_lost:
-            set_lost.remove(i+1)
+    return answer
 
-    return n - len(set_lost)
 
-print(solution(5, [2, 4], [1, 3, 5]	))
-print(solution(5, [2, 4], [3]))
+print(solution("JEROEN"))
