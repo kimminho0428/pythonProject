@@ -9,6 +9,4 @@ def solution(number, k):
 
     return ''.join(answer[:len(answer) - k])
 
-
-
 print(solution("1924", 2))
