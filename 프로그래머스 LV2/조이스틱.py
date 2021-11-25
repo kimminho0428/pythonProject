@@ -1,6 +1,6 @@
 def solution(name):
     # make_name으로 각 자리의 알파벳을 만들기 위해 움직여야 하는 최소한의 조이스틱 가동횟수를 구한다.
-    make_name = [min(ord(i) - ord('A'), ord('Z') - ord(i)+1) for i in name]
+    make_name = [min(ord(i) - ord('A'), ord('Z') - ord(i) + 1) for i in name]
     idx, answer = 0, 0
     while True:
         # answer에 이 모든 합을 더한다. 이로써 알파벳을 만들기 위한 조이스틱 가동횟수는 모두 구한 것이 된다.
