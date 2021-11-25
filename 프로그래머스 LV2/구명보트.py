@@ -1,24 +1,24 @@
 from collections import deque
 
 def solution(people, limit):
-    boat = 0
+    answer = 0
     people.sort()
 
-    # 보트는 2명씩만 탈 수 있고 무게 제한도 있음.
     q = deque(people)
     while q:
         if len(q) >= 2:
             if q[0] + q[-1] <= limit:
                 q.pop()
                 q.popleft()
-                boat += 1
+                answer += 1
             elif q[0] + q[-1] > limit:
                 q.pop()
-                boat += 1
+                answer += 1
         else:
             if q[0] <= limit:
                 q.pop()
-                boat += 1
-    return boat
+                answer += 1
 
-print(solution([70, 50, 80, 50], 3))
+    return answer
+
+print(solution([70, 50, 80, 50], 100))

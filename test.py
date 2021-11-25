@@ -1,22 +1,24 @@
-def solution(name):
+from collections import deque
 
-    make_name = [min(ord(i) - ord('A'), ord('Z') - ord(i) + 1) for i in name]
-    idx, answer = 0, 0
+def solution(people, limit):
+    answer = 0
+    people.sort()
 
-    while True:
-        answer += make_name[idx]
-        make_name[idx] = 0
-        if sum(make_name) == 0:
-            break
-        left, right = 1, 1
-        while make_name[idx - left] == 0:
-            left += 1
-        while make_name[idx + right] == 0:
-            right += 1
-
-        answer += left if left < right else right
-        idx += -left if left < right else right
+    q = deque(people)
+    while q:
+        if len(q) >= 2:
+            if q[0] + q[-1] <= limit:
+                q.pop()
+                q.popleft()
+                answer += 1
+            elif q[0] + q[-1] > limit:
+                q.pop()
+                answer += 1
+        else:
+            if q[0] <= limit:
+                q.pop()
+                answer += 1
 
     return answer
 
-print(solution("JEROEN"))
+print(solution([70, 50, 80, 50], 100))
