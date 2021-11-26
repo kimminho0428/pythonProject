@@ -1,17 +1,22 @@
-def solution(routes):
-    answer = 1
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
 
-    routes.sort(key=lambda x: x[0], reverse=True)
-    now = routes[0][0]
+data.sort()
+first = data[n-1]
+second = data[n-2]
+result = 0
 
-    for i in routes[1:]:
-        if i[1] >= now:
-            continue
-        else:
-            now = i[0]
-            answer += 1
-    
-    return answer
+while True:
+    for i in range(k):
+        if m == 0:
+            break
+        result += first
+        m -= 1
 
+    if m == 0:
+        break
 
-print(solution([[-20, 15], [-14, -5], [-18, -13], [-5, -3]]))
+    result += second
+    m -= 1
+
+print(result)
