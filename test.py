@@ -1,18 +1,13 @@
-def solution(n, costs):
-    answer = 0
-    costs.sort(key=lambda x: x[2])
-    connect = set([costs[0][0]])
+def solution(number, k):
+    answer = []
 
-    while len(connect) != n:
-        for cost in costs:
-            if cost[0] in connect and cost[1] in connect:
-                continue
-            if cost[0] in connect or cost[1] in connect:
-                connect.update([cost[0], cost[1]])
-                answer += cost[2]
-                break
-
-    return answer
+    for num in number:
+        if k > 0 and answer and answer[-1] < num:
+            answer.pop()
+            k -= 1
+        answer.append(num)
 
 
-print(solution(4, [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]))
+    return ''.join(answer[:len(answer) - k])
+
+print(solution("1924", 2))
