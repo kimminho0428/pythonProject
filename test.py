@@ -1,13 +1,17 @@
-def solution(number, k):
-    answer = []
+def solution(routes):
+    answer = 1
 
-    for num in number:
-        if k > 0 and answer and answer[-1] < num:
-            answer.pop()
-            k -= 1
-        answer.append(num)
+    routes.sort(key=lambda x: x[0], reverse=True)
+    now = routes[0][0]
+
+    for i in routes[1:]:
+        if i[1] >= now:
+            continue
+        else:
+            now = i[0]
+            answer += 1
+    
+    return answer
 
 
-    return ''.join(answer[:len(answer) - k])
-
-print(solution("1924", 2))
+print(solution([[-20, 15], [-14, -5], [-18, -13], [-5, -3]]))
