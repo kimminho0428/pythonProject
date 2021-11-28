@@ -1,14 +1,19 @@
-n, k = map(int, input().split())
-count = 0
-while n >= k:
-    while n % k != 0:
-        n -= 1
-        count += 1
-    n //= k
-    count += 1
+n = int(input())
+x, y = 1, 1
+plans = input().split()
 
-while n > 1:
-    n -= 1
-    count += 1
+move = ['L', 'R', 'U', 'D']
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
 
-print(count)
+for plan in plans:
+    for i in range(len(move)):
+        if plan == move[i]:
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+    if nx < 1 or nx > n or ny < 1 or ny > n:
+        continue
+    x, y = nx, ny
+
+print(x, y)
