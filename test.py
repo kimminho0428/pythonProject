@@ -1,15 +1,9 @@
-n = input()
-length = len(n)
-sum1 = 0
-sum2 = 0
+def solution(a, b, c, d, e, f):
+    answer = True
 
-for i in range(length // 2):
-    sum1 += int(n[i])
+    
 
-for i in range(length // 2, length):
-    sum2 += int(n[i])
 
-if sum1 == sum2:
-    print('LUCKY')
-else:
-    print('READY')
+    return answer
+
+print(solution(4, 4, 0, 2, 1, 2))
