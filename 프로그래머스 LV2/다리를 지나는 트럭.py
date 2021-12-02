@@ -14,6 +14,5 @@ def solution(bridge_length, weight, truck_weights):
 
     return time
 
-
 print(solution(2, 10, [7, 4, 5, 6]))
 
