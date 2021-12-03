@@ -1,15 +1,13 @@
-n = input()
-length = len(n)
-sum1 = 0
-sum2 = 0
+s = input()
+s1 = []
+s2 = 0
 
-for i in range(length // 2):
-    sum1 += int(n[i])
+for st in s:
+    if st.isalpha():
+        s1.append(st)
+    else:
+        s2 += int(st)
+s1.sort()
+s1.append(str(s2))
 
-for i in range(length // 2, length):
-    sum2 += int(n[i])
-
-if sum1 == sum2:
-    print('LUCKY')
-else:
-    print('READY')
+print(''.join(s1))
