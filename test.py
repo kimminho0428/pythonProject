@@ -1,13 +1,30 @@
-s = input()
-s1 = []
-s2 = 0
+def solution(s):
+    answer = len(s)
 
-for st in s:
-    if st.isalpha():
-        s1.append(st)
-    else:
-        s2 += int(st)
-s1.sort()
-s1.append(str(s2))
+    for slice in range(1, len(s) // 2 + 1):
+        result = ""
+        count = 1
+        compare = s[0:slice]
 
-print(''.join(s1))
+        for i in range(slice, len(s), slice):
+            if compare == s[i:i + slice]:
+                count += 1
+            else:
+                if count == 1:
+                    result += compare
+                    compare = s[i:i + slice]
+                else:
+                    result += (str(count) + compare)
+                    count = 1
+                    compare = s[i:i + slice]
+
+        if count == 1:
+            result += compare
+        else:
+            result += (str(count) + compare)
+
+        answer = min(answer, len(result))
+
+    return answer
+
+print(solution("aabbaccc"))
