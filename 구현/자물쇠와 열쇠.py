@@ -38,15 +38,14 @@ def solution(key, lock):
                 for i in range(m):
                     for j in range(m):
                         new_lock[x + i][y + j] += key[i][j]
-                    # 새로운 자물쇠에 열쇠가 정확히 들어맞는지 검사
-                    if check(new_lock) == True:
-                        return True
-                    # 자물쇠에서 열쇠를 다시 빼기
-                    for i in range(m):
-                        for j in range(m):
-                            new_lock[x + i][y + j] -= key[i][j]
+                # 새로운 자물쇠에 열쇠가 정확히 들어맞는지 검사
+                if check(new_lock) == True:
+                    return True
+                # 자물쇠에서 열쇠를 다시 빼기
+                for i in range(m):
+                    for j in range(m):
+                        new_lock[x + i][y + j] -= key[i][j]
     return False
-
 
 key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]
 lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
