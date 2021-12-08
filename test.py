@@ -22,7 +22,6 @@ def bfs(x, y):
             # 미로 찾기 공간을 벗어난 경우 무시
             if nx < 0 or nx >= n or ny < 0 or ny >= m:
                 continue
-
             # 벽인 경우 무시
             if graph[nx][ny] == 0:
                 continue
@@ -33,7 +32,7 @@ def bfs(x, y):
                 queue.append((nx, ny))
 
     # 가장 오른쪽 아래까지의 최단 거리 반환
-    return graph[n - 1][m - 1]
+    return graph[n-1][m-1]
 
 # BFS를 수행한 결과 출력
 print(bfs(0, 0))
