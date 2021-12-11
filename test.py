@@ -1,39 +1,77 @@
-from collections import deque
+import sys
+import copy
 
-# 도시의 개수, 도로의 개수, 거리 정보, 출발 도시 번호
-n, m, k, x = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
+# sys.setrecursionlimit(10000)
+# sys.stdin = open('./test.txt', 'r')
+input = sys.stdin.readline
 
-# 모든 도로 정보 입력받기
-for i in range(m):
-    a, b = map(int, input().split())
-    graph[a].append(b)
+n, m = 0, 0
+data = []
+result = 0
+virusList = []
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
 
-# 모든 도시에 대한 최단거리 초기화
-distance = [-1] * (n + 1)
 
-# 출발 도시까지의 거리는 0으로 설정
-distance[x] = 0
+# 모든 방향으로 바이러스 전파
+def virus(x, y, copyed):
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        # 상, 하, 좌, 우 중에서 바이러스가 퍼질 수 있는 경우
+        if 0 <= nx and nx < n and 0 <= ny and ny < m:
+            if copyed[nx][ny] == 0:
+                # 해당 위치에 바이러스 배치 하고, 다시 재귀적으로 수행
+                copyed[nx][ny] = 2
+                virus(nx, ny, copyed)
 
-# 너비 우선 탐색(BFS) 수행
-q = deque([x])
-while q:
-    now = q.popleft()
-    # 현재 도시에서 이동할 수 있는 모든 도시를 확인
-    for next_node in graph[now]:
-        # 아직 방문하지 않은 도시라면
-        if distance[next_node] == -1:
-            # 최단 거리 갱신
-            distance[next_node] = distance[now] + 1
-            q.append(next_node)
 
-# 최단 거리가 K인 모든 도시의 번호를 오름차순으로 출력
-check = False
-for i in range(1, n+1):
-    if distance[i] == k:
-        print(i)
-        check = True
+# 안전 영역 크기 계산
+def safe(temp):
+    cnt = 0
+    for i in range(n):
+        for j in range(m):
+            if temp[i][j] == 0:
+                cnt += 1
+    return cnt
 
-# 만약 최단거리가 K인 도시가 없다면, -1 출력
-if check == False:
-    print(-1)
+
+def dfs(start, depth):
+    global result
+    # 울타리가 3개 설치된 경우
+    if depth == 3:
+        # data를 temp에 넣어주고
+        temp = copy.deepcopy(data)
+
+        # 바이러스를 퍼트린 다음
+        for i in range(len(virusList)):
+            [virusX, virusY] = virusList[i]
+            virus(virusX, virusY, temp)
+
+        # 안전한 영역을 계산
+        result = max(result, safe(temp))
+        return
+
+    # 2차원 배열에서 숫자를 0부터 n * m 까지 증가시킬 때 (i/m), (i % m)을 좌표로 하면 2차원 배열의 모든 인덱스를 탐색
+    for i in range(start, n * m):
+        x = (int)(i / m)
+        y = (int)(i % m)
+
+        if data[x][y] == 0:
+            data[x][y] = 1
+            dfs(i + 1, depth + 1)
+            data[x][y] = 0
+
+# if __name__=="__main__"이라는 조건문을 넣어주고 그 아래는 직접 실행시켰을 때만 실행되길 원하는 코드들을 넣어주는 것
+if __name__ == '__main__':
+    n, m = map(int, input().split())
+    for i in range(n):
+        data.append(list(map(int, input().split())))
+
+    for i in range(n):
+        for j in range(m):
+            if data[i][j] == 2:
+                virusList.append([i, j])
+
+dfs(0, 0)
+print(result)
