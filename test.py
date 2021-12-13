@@ -14,6 +14,7 @@ def solution(phone_number):
 
     return answer
 
+
 print(solution("01012345678"))
 print(solution("010-1212-333"))
 print(solution("+82-10-3434-2323"))
