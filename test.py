@@ -11,9 +11,7 @@ def solution(phone_number):
             answer = 3
         else:
             answer = -1
-
     return answer
-
 
 print(solution("01012345678"))
 print(solution("010-1212-333"))
