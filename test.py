@@ -1,67 +1,40 @@
-import sys
-import copy
+from collections import deque
 
-input = sys.stdin.readline
-
-n, m = 0, 0
+n, k = map(int, input().split())
+graph = []
 data = []
-result = 0
-virusList = []
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+    for j in range(n):
+        if graph[i][j] != 0:
+            data.append((graph[i][j], 0, i, j))
 
-dx = [1, -1, 0, 0]
-dy = [0, 0, -1, 1]
+data.sort()
+q = deque(data)
 
-def virus(x, y, copyed):
+target_s, target_x, target_y = map(int, input().split())
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+
+while q:
+    virus, s, x, y = q.popleft()
+
+    if s == target_s:
+        break
+
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
-        if nx >= 0 and nx < n and ny >= 0 and ny < m:
-            if copyed[nx][ny] == 0:
-                copyed[nx][ny] = 2
-                virus(nx, ny, copyed)
+
+        if nx >= 0 and nx < n and ny >= 0 and ny < n:
+            if graph[nx][ny] == 0:
+                graph[nx][ny] = virus
+                q.append((virus, s+1, nx, ny))
+
+print(graph[target_x-1][target_y-1])
 
 
 
-def safe(temp):
-    cnt = 0
-    for i in range(n):
-        for j in range(m):
-            if temp[i][j] == 0:
-                cnt += 1
 
-    return cnt
-
-def dfs(start, depth):
-    global result
-
-    if depth == 3:
-        temp = copy.deepcopy(data)
-
-        for i in range(len(virusList)):
-            [virusX, virusY] = virusList[i]
-            virus(virusX, virusY, temp)
-
-        result = max(result, safe(temp))
-        return
-
-    for i in range(start, n * m):
-        x = (int)(i / m)
-        y = (int)(i % m)
-        if data[x][y] == 0:
-            data[x][y] = 1
-            dfs(i + 1, depth + 1)
-            data[x][y] = 0
-
-
-if __name__=="__main__":
-    n, m = map(int, input().split())
-    for i in range(n):
-        data.append(list(map(int, input().split())))
-
-    for i in range(n):
-        for j in range(m):
-            if data[i][j] == 2:
-                virusList.append([i, j])
-
-dfs(0, 0)
-print(result)
