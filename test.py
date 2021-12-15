@@ -1,27 +1,67 @@
-from collections import deque
+import sys
+import copy
 
-n, m, k, x = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
-for i in range(m):
-    a, b = map(int, input().split())
-    graph[a].append(b)
+input = sys.stdin.readline
 
-distance = [-1] * (n + 1)
-distance[x] = 0
-q = deque([x])
+n, m = 0, 0
+data = []
+result = 0
+virusList = []
 
-while q:
-    now = q.popleft()
-    for next_node in graph[now]:
-        if distance[next_node] == -1:
-            distance[next_node] = distance[now] + 1
-            q.append(next_node)
+dx = [1, -1, 0, 0]
+dy = [0, 0, -1, 1]
 
-check = False
-for i in range(1, n+1):
-    if distance[i] == k:
-        print(i)
-        check = True
+def virus(x, y, copyed):
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if nx >= 0 and nx < n and ny >= 0 and ny < m:
+            if copyed[nx][ny] == 0:
+                copyed[nx][ny] = 2
+                virus(nx, ny, copyed)
 
-if check == False:
-    print(-1)
+
+
+def safe(temp):
+    cnt = 0
+    for i in range(n):
+        for j in range(m):
+            if temp[i][j] == 0:
+                cnt += 1
+
+    return cnt
+
+def dfs(start, depth):
+    global result
+
+    if depth == 3:
+        temp = copy.deepcopy(data)
+
+        for i in range(len(virusList)):
+            [virusX, virusY] = virusList[i]
+            virus(virusX, virusY, temp)
+
+        result = max(result, safe(temp))
+        return
+
+    for i in range(start, n * m):
+        x = (int)(i / m)
+        y = (int)(i % m)
+        if data[x][y] == 0:
+            data[x][y] = 1
+            dfs(i + 1, depth + 1)
+            data[x][y] = 0
+
+
+if __name__=="__main__":
+    n, m = map(int, input().split())
+    for i in range(n):
+        data.append(list(map(int, input().split())))
+
+    for i in range(n):
+        for j in range(m):
+            if data[i][j] == 2:
+                virusList.append([i, j])
+
+dfs(0, 0)
+print(result)

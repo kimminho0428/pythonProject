@@ -20,7 +20,7 @@ def virus(x, y, copyed):
         nx = x + dx[i]
         ny = y + dy[i]
         # 상, 하, 좌, 우 중에서 바이러스가 퍼질 수 있는 경우
-        if 0 <= nx and nx < n and 0 <= ny and ny < m:
+        if nx >= 0 and nx < n and ny >= 0 and ny < m:
             if copyed[nx][ny] == 0:
                 # 해당 위치에 바이러스 배치 하고, 다시 재귀적으로 수행
                 copyed[nx][ny] = 2
