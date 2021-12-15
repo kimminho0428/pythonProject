@@ -1,21 +1,27 @@
-def solution(phone_number):
-    answer = 0
+from collections import deque
 
-    for i in phone_number:
+n, m, k, x = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
+for i in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
 
-        if len(phone_number) == 11:
-            answer = 1
-        elif len(phone_number) == 13:
-            answer = 2
-        elif phone_number == "+82-10-" and len(phone_number) == 16:
-            answer = 3
-        else:
-            answer = -1
-    return answer
+distance = [-1] * (n + 1)
+distance[x] = 0
+q = deque([x])
 
-print(solution("01012345678"))
-print(solution("010-1212-333"))
-print(solution("+82-10-3434-2323"))
-print(solution("+82-010-3434-2323"))
+while q:
+    now = q.popleft()
+    for next_node in graph[now]:
+        if distance[next_node] == -1:
+            distance[next_node] = distance[now] + 1
+            q.append(next_node)
 
+check = False
+for i in range(1, n+1):
+    if distance[i] == k:
+        print(i)
+        check = True
 
+if check == False:
+    print(-1)
