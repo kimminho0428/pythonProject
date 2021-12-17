@@ -1,35 +1,52 @@
-from collections import deque
+# "균형잡힌 괄호 문자열"의 인덱스 반환
+def balanced_index(p):
+    count = 0
+    for i in range(len(p)):
+        if p[i] == '(':
+            count += 1
+        else:
+            count -= 1
+        if count == 0:
+            return i
 
-n, k = map(int, input().split())
-graph = []
-data = []
-for i in range(n):
-    graph.append(list(map(int, input().split())))
-    for j in range(n):
-        if graph[i][j] != 0:
-            data.append((graph[i][j], 0, i, j))
+# "올바른 괄호 문자열"인지 판단
+def check_proper(p):
+    count = 0
+    for i in p:
+        if i == '(':
+            count += 1
+        else:
+            if count == 0:
+                return False
+            count -= 1
+    return True
 
-target_s, target_x, target_y = map(int, input().split())
-data.sort()
-q = deque(data)
+def solution(p):
+    answer = ''
+    if p == '':
+        return answer
 
-# 상, 하, 좌, 우
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+    index = balanced_index(p)
+    u = p[:index+1]
+    v = p[index+1:]
 
-while q:
-    virus, s, x, y = q.popleft()
+    # "올바른 괄호 문자열"이면, v에 대해 함수를 수행한 결과를 붙여 반환
+    if check_proper(u):
+        answer = u + solution(v)
+    # "올바른 괄호 문자열"이 아니라면 아래의 과정을 수행
+    else:
+        answer = '('
+        answer += solution(v)
+        answer += ')'
+        # 첫 번째와 마지막 문자를 제거
+        u = list(u[1:-1])
+        for i in range(len(u)):
+            if u[i] == '(':
+                u[i] = ')'
+            else:
+                u[i] = '('
+        answer += ''.join(u)
+    return answer
 
-    if target_s == s:
-        break
-
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        if nx >= 0 and nx < n and ny >= 0 and ny < n:
-            if graph[nx][ny] == 0:
-                graph[nx][ny] = virus
-                q.append((virus, s+1, nx, ny))
-
-print(graph[target_x-1][target_y-1])
+print(solution("()))((()"))
 
