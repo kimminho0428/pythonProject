@@ -48,5 +48,6 @@ def solution(p):
         answer += ''.join(u)
     return answer
 
+
 print(solution("()))((()"))
 
