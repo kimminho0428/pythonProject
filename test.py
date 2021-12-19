@@ -1,45 +1,32 @@
-def balanced_index(p):
-    count = 0
-    for i in range(len(p)):
-        if p[i] == '(':
-            count += 1
-        else:
-            count -= 1
-        if count == 0:
-            return i
+n = int(input())
+data = list(map(int, input().split()))
+add, sub, mul, div = map(int, input().split())
+min_value = 1e9
+max_value = -1e9
 
-def checked_proper(p):
-    count = 0
-    for i in p:
-        if i == '(':
-            count += 1
-        else:
-            if count == 0:
-                return False
-            count -= 1
-    return True
-
-def solution(p):
-    answer = ''
-    if p == '':
-        return answer
-    index = balanced_index(p)
-    u = p[:index+1]
-    v = p[index+1:]
-    if checked_proper(u):
-        answer = u + solution(v)
+def dfs(i, now):
+    global min_value, max_value, add, sub, mul, div
+    if i == n:
+        min_value = min(now, min_value)
+        max_value = max(now, max_value)
     else:
-        answer = '('
-        answer += solution(v)
-        answer += ')'
-        u = list(u[1:-1])
-        for i in range(len(u)):
-            if u[i] == '(':
-                u[i] = ')'
-            else:
-                u[i] = '('
-        answer += "".join(u)
+        if add > 0:
+            add -= 1
+            dfs(i + 1, now + data[i])
+            add += 1
+        if sub > 0:
+            sub -= 1
+            dfs(i + 1, now - data[i])
+            sub += 1
+        if mul > 0:
+            mul -= 1
+            dfs(i + 1, now * data[i])
+            mul += 1
+        if div > 0:
+            div -= 1
+            dfs(i + 1, int(now / data[i]))
+            div += 1
 
-    return answer
-
-print(solution("()))((()"))
+dfs(1, data[0])
+print(max_value)
+print(min_value)
