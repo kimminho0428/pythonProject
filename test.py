@@ -27,6 +27,7 @@ def dfs(i, now):
             dfs(i + 1, int(now / data[i]))
             div += 1
 
+
 dfs(1, data[0])
 print(max_value)
 print(min_value)
