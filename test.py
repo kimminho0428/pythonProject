@@ -1,9 +1,15 @@
 array = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
-for i in range(1, len(array)):
-    for j in range(i, 0, -1):
-        if array[j] < array[j-1]:
-            array[j], array[j-1] = array[j-1], array[j]
-        else:
-            break
 
-print(array)
+def quick_sort(array):
+    if len(array) <= 1:
+        return array
+
+    pivot = array[0]
+    tail = array[1:]
+
+    left_side = [x for x in tail if x <= pivot]
+    right_side = [x for x in tail if x > pivot]
+
+    return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+
+print(quick_sort(array))
