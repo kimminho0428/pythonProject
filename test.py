@@ -1,33 +1,9 @@
-n = int(input())
-data = list(map(int, input().split()))
-add, sub, mul, div = map(int, input().split())
-min_value = 1e9
-max_value = -1e9
+array = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+for i in range(len(array)):
+    min_index = i
+    for j in range(i + 1, len(array)):
+        if array[min_index] > array[j]:
+            min_index = j
+    array[i], array[min_index] = array[min_index], array[i]
 
-def dfs(i, now):
-    global min_value, max_value, add, sub, mul, div
-    if i == n:
-        min_value = min(now, min_value)
-        max_value = max(now, max_value)
-    else:
-        if add > 0:
-            add -= 1
-            dfs(i + 1, now + data[i])
-            add += 1
-        if sub > 0:
-            sub -= 1
-            dfs(i + 1, now - data[i])
-            sub += 1
-        if mul > 0:
-            mul -= 1
-            dfs(i + 1, now * data[i])
-            mul += 1
-        if div > 0:
-            div -= 1
-            dfs(i + 1, int(now / data[i]))
-            div += 1
-
-
-dfs(1, data[0])
-print(max_value)
-print(min_value)
+print(array)
