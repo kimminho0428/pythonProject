@@ -1,9 +1,14 @@
-n = int(input())
-array = []
-for i in range(n):
-    input_data = input().split()
-    array.append((input_data[0], int(input_data[1])))
+n, k = map(int, input().split())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
 
-array = sorted(array, key=lambda x: x[1])
-for student in array:
-    print(student[0], end=' ')
+a = sorted(a)
+b = sorted(b, reverse=True)
+
+for i in range(k):
+    if a[i] < b[i]:
+        a[i], b[i] = b[i], a[i]
+    else:
+        break
+
+print(sum(a))
