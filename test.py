@@ -1,9 +1,5 @@
 n = int(input())
-students = []
-for _ in range(n):
-    students.append(input().split())
+data = list(map(int, input().split()))
+data.sort()
 
-students = sorted(students, key=lambda x: (-int(x[1]), int(x[2]), -int(x[3]), x[0]))
-
-for student in students:
-    print(student[0])
+print(data[(n - 1) // 2])
