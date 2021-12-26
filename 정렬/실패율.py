@@ -23,5 +23,6 @@ def solution(N, stages):
     # 정렬된 스테이지 번호 출력
     answer = [i[0] for i in answer]
     return answer
+
 print(solution(5,[2,1,2,6,2,4,3,3]))
 
