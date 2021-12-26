@@ -1,21 +1,19 @@
-def solution(N, stages):
-    answer = []
-    length = len(stages)
+import heapq
 
-    for i in range(1, N+1):
-        count = stages.count(i)
+n = int(input())
+heap = []
 
-        if length == 0:
-            fail = 0
-        else:
-            fail = count / length
+for i in range(n):
+    data = int(input())
+    heapq.heappush(heap, data)
 
-        answer.append((i, fail))
-        length -= count
+result = 0
 
-    answer = sorted(answer, key=lambda x: x[1], reverse=True)
-    answer = [i[0] for i in answer]
+while len(heap) != 1:
+    one = heapq.heappop(heap)
+    two = heapq.heappop(heap)
+    sum_value = one + two
+    result += sum_value
+    heapq.heappush(heap, sum_value)
 
-    return answer
-
-print(solution(5,[2,1,2,6,2,4,3,3]))
+print(result)
