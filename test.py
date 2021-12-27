@@ -15,4 +15,5 @@ while len(heap) != 1:
     result += sum_value
     heapq.heappush(heap, sum_value)
 
+
 print(result)
