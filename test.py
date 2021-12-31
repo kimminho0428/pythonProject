@@ -1,17 +1,26 @@
-def binary_search(array, start, end):
-    while start <= end:
-        mid = (start + end) // 2
-        if array[mid] == mid:
-            return mid
-        elif array[mid] > mid:
-            end = mid - 1
-        else:
-            start = mid + 1
+n, c = list(map(int, input().split()))
+array = []
+for _ in range(n):
+    array.append(int(input()))
 
-n = int(input())
-array = list(map(int, input().split()))
-idx = binary_search(array, 0, n - 1)
-if idx == None:
-    print(-1)
-else:
-    print(idx)
+array.sort()
+start = 1
+end = array[-1] - array[0]
+result = 0
+while start <= end:
+    mid = (start + end) // 2
+    value = array[0]
+    count = 1
+    for i in range(1, n):
+        if array[i] >= mid + value:
+            value = array[i]
+            count += 1
+
+    if count >= c:
+        start = mid + 1
+        result = mid
+    else:
+        end = mid - 1
+
+print(result)
+
