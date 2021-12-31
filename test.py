@@ -1,31 +1,17 @@
-N, x = map(int, input().split())
+def binary_search(array, start, end):
+    while start <= end:
+        mid = (start + end) // 2
+        if array[mid] == mid:
+            return mid
+        elif array[mid] > mid:
+            end = mid - 1
+        else:
+            start = mid + 1
+
+n = int(input())
 array = list(map(int, input().split()))
-a = 0
-b = 0
-start = 0
-end = N
-
-while start < end:
-    mid = (start + end) // 2
-    if array[mid] >= x:
-        end = mid - 1
-    else:
-        start = mid + 1
-        a = start
-
-start = 0
-end = N
-while start < end:
-    mid = (start + end) // 2
-    if array[mid] <= x:
-        start = mid + 1
-        b = start
-    else:
-        end = mid - 1
-
-if b - a > 0:
-    answer = b - a
+idx = binary_search(array, 0, n - 1)
+if idx == None:
+    print(-1)
 else:
-    answer = -1
-
-print(answer)
+    print(idx)
