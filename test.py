@@ -1,20 +1,31 @@
-n, m = map(int, input().split())
+N, x = map(int, input().split())
 array = list(map(int, input().split()))
-
+a = 0
+b = 0
 start = 0
-end = max(array)
+end = N
 
-result = 0
-while start <= end:
-    total = 0
+while start < end:
     mid = (start + end) // 2
-    for x in array:
-        if x > mid:
-            total += x - mid
-    if total < m:
+    if array[mid] >= x:
         end = mid - 1
     else:
-        result = mid
         start = mid + 1
+        a = start
 
-print(result)
+start = 0
+end = N
+while start < end:
+    mid = (start + end) // 2
+    if array[mid] <= x:
+        start = mid + 1
+        b = start
+    else:
+        end = mid - 1
+
+if b - a > 0:
+    answer = b - a
+else:
+    answer = -1
+
+print(answer)
