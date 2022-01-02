@@ -1,41 +1,16 @@
-from bisect import bisect_left, bisect_right
+# 한 번 계산된 결과를 메모이제이션하기 위한 리스트 초기화
+d = [0] * 100
 
-def count_by_range(a, left_value, right_value):
-    right_index = bisect_right(a, right_value)
-    left_index = bisect_left(a, left_value)
+# 피보나치 함수를 재귀함수로 구현(탑다운 다이내믹 프로그래밍)
+def fibo(x):
+    # 종료조건(1 혹은 2일 때 1을 반환)
+    if x == 1 or x == 2:
+        return 1
+    # 이미 계산한 적 있는 문제라면 그대로 반환
+    if d[x] != 0:
+        return d[x]
+    # 아직 계산하지 않은 문제라면 점화식에 따라서 피보나치 결과 반환
+    d[x] = fibo(x-1) + fibo(x-2)
+    return d[x]
 
-    return right_index - left_index
-
-# 모든 단어를 길이마다 나누어서 저장하기 위한 리스트
-array = [[] for _ in range(10001)]
-
-# 모든 단어를 길이마다 나누어서 뒤집어 저장하기 위한 리스트
-reversed_array = [[] for _ in range(10001)]
-
-def solution(words, queries):
-    answer = []
-    # 모든 단어를 접미사 와일드카드 배열, 접두사 와일드카드 배열에 각각 삽입
-    for word in words:
-        # 단어를 삽입
-        array[len(word)].append(word)
-        # 단어를 뒤집어서 삽입
-        reversed_array[len(word)].append(word[::-1])
-
-    # 이진 탐색을 수행하기 위해 각 단어 리스트 정렬 수행
-    for i in range(10001):
-        array[i].sort()
-        reversed_array[i].sort()
-
-    # 쿼리를 하나씩 확인하며 처리
-    for q in queries:
-        # 접미사에 와일드 카드가 붙은 경우
-        if q[0] != '?':
-            res = count_by_range(array[len(q)], q.replace('?', 'a'), q.replace('?', 'z'))
-        # 접두사에 와일드 카드가 붙은 경우
-        else:
-            res = count_by_range(reversed_array[len(q)], q[::-1].replace('?', 'a'), q[::-1].replace('?', 'z'))
-        # 검색된 단어의 개수를 저장
-        answer.append(res)
-    return answer
-
-print(solution(["frodo", "front", "frost", "frozen", "frame", "kakao"], ["fro??", "????o", "fr???", "fro???", "pro?"]))
+print(fibo(5))
