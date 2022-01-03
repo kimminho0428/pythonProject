@@ -1,8 +1,23 @@
-n = int(input())
-d = [0] * 10001
-d[1] = 1
-d[2] = 3
-for i in range(3, n + 1):
-    d[i] = (d[i - 2] + 2 * d[i - 1]) % 796796
+# 정수 N, M을 입력받기
+n, m = map(int, input().split())
+# N개의 화폐 단위 정보를 입력받기
+array = []
+for i in range(n):
+    array.append(int(input()))
 
-print(d[n])
+# 한 번 계산된 결과를 저장하기 위한 DP테이블 초기화
+d = [10001] * (m + 1)
+d[0] = 0
+# 다이나믹 프로그래밍 진행
+for i in range(n):
+    for j in range(array[i], m + 1):
+        # (i - k)원을 만드는 방법이 존재하는 경우
+        if d[j - array[i]] != 10001:
+            d[j] = min(d[j], d[j - array[i]] + 1)
+
+# 계산된 결과 출력
+# 최종적으로 M원을 만드는 방법이 없는 경우
+if d[m] == 10001:
+    print(-1)
+else:
+    print(d[m])
