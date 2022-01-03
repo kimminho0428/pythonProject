@@ -1,9 +1,8 @@
 n = int(input())
-k = list(map(int, input().split()))
-d = [0] * 100
-d[0] = k[0]
-d[1] = max(k[0], k[1])
-for i in range(2, n):
-    d[i] = max(d[i - 1], d[i - 2] + k[i])
+d = [0] * 10001
+d[1] = 1
+d[2] = 3
+for i in range(3, n + 1):
+    d[i] = (d[i - 2] + 2 * d[i - 1]) % 796796
 
-print(d[n - 1])
+print(d[n])
