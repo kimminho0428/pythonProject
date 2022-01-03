@@ -1,12 +1,9 @@
-x = int(input())
-d = [0] * 30001
-for i in range(2, x + 1):
-    d[i] = d[i - 1] + 1
-    if i % 2 == 0:
-        d[i] = min(d[i], d[i // 2] + 1)
-    if i % 3 == 0:
-        d[i] = min(d[i], d[i // 3] + 1)
-    if i % 5 == 0:
-        d[i] = min(d[i], d[i // 5] + 1)
+n = int(input())
+k = list(map(int, input().split()))
+d = [0] * 100
+d[0] = k[0]
+d[1] = max(k[0], k[1])
+for i in range(2, n):
+    d[i] = max(d[i - 1], d[i - 2] + k[i])
 
-print(d[x])
+print(d[n - 1])
