@@ -1,23 +1,28 @@
-# 정수 N, M을 입력받기
-n, m = map(int, input().split())
-# N개의 화폐 단위 정보를 입력받기
-array = []
-for i in range(n):
-    array.append(int(input()))
+for tc in range(int(input())):
+    n, m = map(int, input().split())
+    array = list(map(int, input().split()))
 
-# 한 번 계산된 결과를 저장하기 위한 DP테이블 초기화
-d = [10001] * (m + 1)
-d[0] = 0
-# 다이나믹 프로그래밍 진행
-for i in range(n):
-    for j in range(array[i], m + 1):
-        # (i - k)원을 만드는 방법이 존재하는 경우
-        if d[j - array[i]] != 10001:
-            d[j] = min(d[j], d[j - array[i]] + 1)
+    dp = []
+    index = 0
+    for i in range(n):
+        dp.append(array[index:index + m])
+        index += m
 
-# 계산된 결과 출력
-# 최종적으로 M원을 만드는 방법이 없는 경우
-if d[m] == 10001:
-    print(-1)
-else:
-    print(d[m])
+    for j in range(1, m):
+        for i in range(n):
+            if i == 0:
+                left_up = 0
+            else:
+                left_up = dp[i - 1][j - 1]
+            if i == n - 1:
+                left_down = 0
+            else:
+                left_down = dp[i + 1][j - 1]
+            left = dp[i][j - 1]
+            dp[i][j] = dp[i][j] + max(left_up, left_down, left)
+
+    result = 0
+    for i in range(n):
+        result = max(result, dp[i][m - 1])
+
+    print(result)
