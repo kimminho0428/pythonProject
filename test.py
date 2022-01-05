@@ -7,7 +7,6 @@ p = []
 # 다이나믹 프로그래밍을 위한 1차원 테이블 초기화
 dp = [0] * (n + 1)
 max_value = 0
-
 for _ in range(n):
     x, y = map(int, input().split())
     t.append(x)
@@ -26,3 +25,5 @@ for i in range(n - 1, -1, -1):
         dp[i] = max_value
 
 print(max_value)
+
+
