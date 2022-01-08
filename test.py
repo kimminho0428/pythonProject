@@ -1,17 +1,14 @@
-import heapq
+def solution(n, lost, reserve):
+    set_reserve = set(reserve) - set(lost)
+    set_lost = set(lost) - set(reserve)
 
-def solution(scoville, K):
-    answer = 0
-    heapq.heapify(scoville)
+    for i in set_reserve:
+        if i-1 in set_lost:
+            set_lost.remove(i-1)
+        elif i+1 in set_lost:
+            set_lost.remove(i+1)
+    return n - len(set_lost)
 
-    while scoville[0] < K:
-        if len(scoville) > 1:
-            answer += 1
-            first = heapq.heappop(scoville)
-            second = heapq.heappop(scoville)
-            heapq.heappush(scoville, first + 2 * second)
-        else:
-            return -1
-    return answer
-
-print(solution([1, 2, 3, 9, 10, 12], 7))
+print(solution(5, [2, 4], [1, 3, 5]))
+print(solution(5, [2, 4], [3]))
+print(solution(3, [3], [1]))
