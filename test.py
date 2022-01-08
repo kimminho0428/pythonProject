@@ -1,30 +1,17 @@
-import sys
-input = sys.stdin.readline
+import heapq
 
-INF = int(1e9)
-n = int(input())
-m = int(input())
-graph = [[INF] * (n + 1) for _ in range(n + 1)]
+def solution(scoville, K):
+    answer = 0
+    heapq.heapify(scoville)
 
-for a in range(1, n + 1):
-    for b in range(1, n + 1):
-        if a == b:
-            graph[a][b] = 0
-
-for _ in range(m):
-    a, b, c = map(int, input().split())
-    if c < graph[a][b]:
-        graph[a][b] = c
-
-for k in range(1, n + 1):
-    for a in range(1, n + 1):
-        for b in range(1, n + 1):
-            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
-
-for a in range(1, n + 1):
-    for b in range(1, n + 1):
-        if graph[a][b] == INF:
-            print(0, end=' ')
+    while scoville[0] < K:
+        if len(scoville) > 1:
+            answer += 1
+            first = heapq.heappop(scoville)
+            second = heapq.heappop(scoville)
+            heapq.heappush(scoville, first + 2 * second)
         else:
-            print(graph[a][b], end=' ')
-    print()
+            return -1
+    return answer
+
+print(solution([1, 2, 3, 9, 10, 12], 7))
