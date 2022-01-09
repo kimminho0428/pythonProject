@@ -1,16 +1,31 @@
-from bisect import bisect_left, bisect_right
+import sys
 
-def count_by_range(a, left_value, right_value):
-    right_index = bisect_right(a, right_value)
-    left_index = bisect_left(a, left_value)
+INF = int(1e9)
+input = sys.stdin.readline
 
-    return right_index - left_index
+n = int(input())
+m = int(input())
+graph = [[INF] * (n + 1) for _ in range(n + 1)]
 
-n, x = map(int, input().split())
-array = list(map(int, input().split()))
+for a in range(1, n + 1):
+    for b in range(1, n + 1):
+        if a == b:
+            graph[a][b] = 0
 
-count = count_by_range(array, x, x)
-if count == 0:
-    print(-1)
-else:
-    print(count)
+for _ in range(m):
+    a, b, c = map(int, input().split())
+    if c < graph[a][b]:
+        graph[a][b] = c
+
+for k in range(1, n + 1):
+    for a in range(1, n + 1):
+        for b in range(1, n + 1):
+            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+
+for a in range(1, n + 1):
+    for b in range(1, n + 1):
+        if graph[a][b] == INF:
+            print(0, end=" ")
+        else:
+            print(graph[a][b], end=" ")
+    print()
