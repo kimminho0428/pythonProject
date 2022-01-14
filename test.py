@@ -1,37 +1,42 @@
-import heapq
-import sys
+# 특정 원소가 속한 집합을 찾기
+def find_parent(parent, x):
+    # 루트 노드가 아니라면, 루트 노드를 찾을 때까지 재귀적으로 호출
+    if parent[x] != x:
+        parent[x] = find_parent(parent, parent[x])
+    return parent[x]
 
-INF = int(1e9)
-input = sys.stdin.readline
+# 두 원소가 속한 집합을 합치기
+def union_parent(parent, a, b):
+    a = find_parent(parent, a)
+    b = find_parent(parent, b)
+    if a < b:
+        parent[b] = a
+    else:
+        parent[a] = b
 
-# 상, 하, 좌, 우
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+# 노드의 개수와 간선의 개수 입력받기
+v, e = map(int, input().split())
+# 부모 테이블 초기화
+parent = [0] * (v + 1)
 
-for tc in range(int(input())):
-    n = int(input())
-    graph = []
-    for i in range(n):
-        graph.append(list(map(int, input().split())))
+# 부모 테이블 상에서, 부모를 자기 자신으로 초기화
+for i in range(1, v + 1):
+    parent[i] = i
 
-    distance = [[INF] * n for _ in range(n)]
-    x, y = 0, 0
-    q = [(graph[x][y], x, y)]
-    while q:
-        dist, x, y = heapq.heappop(q)
-        if distance[x][y] < dist:
-            continue
+# union 연산을 각각 수행
+for i in range(e):
+    a, b = map(int, input().split())
+    union_parent(parent, a, b)
 
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+# 각 원소가 속한 집합 출력
+print('각 원소가 속한 집합: ', end='')
+for i in range(1, v + 1):
+    print(find_parent(parent, i), end=' ')
 
-            if nx < 0 or nx >= n or ny < 0 or ny >= n:
-                continue
+print()
 
-            cost = dist + graph[nx][ny]
-            if cost < distance[nx][ny]:
-                distance[nx][ny] = cost
-                heapq.heappush(q, (cost, nx, ny))
+# 부모 테이블 내용 출력
+print('부모 테이블: ', end='')
+for i in range(1, v + 1):
+    print(parent[i], end=' ')
 
-    print(distance[n - 1][n - 1])
