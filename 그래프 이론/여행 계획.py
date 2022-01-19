@@ -26,7 +26,7 @@ for i in range(1, n + 1):
 for i in range(n):
     data = list(map(int, input().split()))
     for j in range(n):
-        # 합집합 연산을 수행
+        # 연결된 경우 union 연산 수행
         if data[j] == 1:
             union_parent(parent, i + 1, j + 1)
 
