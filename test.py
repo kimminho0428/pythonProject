@@ -11,24 +11,18 @@ def union_parent(parent, a, b):
     else:
         parent[a] = b
 
-n, m = map(int, input().split())
-parent = [0] * (n + 1)
-for i in range(1, n + 1):
+g = int(input())
+p = int(input())
+parent = [0] * (g + 1)
+for i in range(1, g + 1):
     parent[i] = i
 
-for i in range(n):
-    data = list(map(int, input().split()))
-    for j in range(n):
-        if data[j] == 1:
-            union_parent(parent, i + 1, j + 1)
+result = 0
+for _ in range(p):
+    data = find_parent(parent, int(input()))
+    if data == 0:
+        break
+    union_parent(parent, data, data - 1)
+    result += 1
 
-result = True
-plan = list(map(int, input().split()))
-for i in range(m - 1):
-    if find_parent(parent, plan[i]) != find_parent(parent, plan[i + 1]):
-        result = False
-
-if result:
-    print("YES")
-else:
-    print("NO")
+print(result)
