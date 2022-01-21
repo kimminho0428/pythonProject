@@ -1,19 +1,11 @@
-n, m, k = map(int, input().split())
-data = list(map(int, input().split()))
-data.sort()
-first = data[n - 1]
-second = data[n - 2]
+n, m = map(int, input().split())
+datas = []
 result = 0
-while True:
-    for i in range(k):
-        if m == 0:
-            break
-        result += first
-        m -= 1
+for i in range(n):
+    datas.append(list(map(int, input().split())))
 
-    if m == 0:
-        break
-    result += second
-    m -= 1
+for data in datas:
+    data.sort()
+    result = max(result, data[0])
 
 print(result)
