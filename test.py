@@ -1,15 +1,13 @@
-n, k = map(int, input().split())
+n = int(input())
+data = list(map(int, input().split()))
+data.sort()
+result = 0
 count = 0
 
-while n >= k:
-    while n % k != 0:
-        n -= 1
-        count += 1
-    n //= k
+for i in data:
     count += 1
+    if count >= i:
+        result += 1
+        count = 0
 
-while n > 1:
-    n -= 1
-    count += 1
-
-print(count)
+print(result)
