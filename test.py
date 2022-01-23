@@ -1,9 +1,12 @@
+import sys
+
+input = sys.stdin.readline
+
 n = int(input())
 data = list(map(int, input().split()))
 data.sort()
-result = 0
 count = 0
-
+result = 0
 for i in data:
     count += 1
     if count >= i:
