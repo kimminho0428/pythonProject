@@ -12,4 +12,5 @@ for i in data:
     if count >= i:
         result += 1
         count = 0
+        
 print(result)
