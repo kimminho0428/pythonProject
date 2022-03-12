@@ -1,13 +1,9 @@
-n = int(input())
-
-data = list(map(int, input().split()))
-data.sort()
+n = 1260
+coins = [500, 100, 50, 10]
 count = 0
-result = 0
-for i in data:
-    count += 1
-    if count >= i:
-        result += 1
-        count = 0
 
-print(result)
+for coin in coins:
+    count += n // coin
+    n %= coin
+
+print(count)
