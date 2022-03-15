@@ -1,17 +1,13 @@
-import sys
-input = sys.stdin.readline
+n = input()
+data = list(map(int, input().split()))
+data.sort()
 
-n, k = map(int, input().split())
+result = 0
 count = 0
-while n >= k:
-    if n % k != 0:
-        n -= 1
-        count += 1
-    n //= k
+for i in data:
     count += 1
+    if count >= i:
+        result += 1
+        count = 0
 
-while n > 1:
-    n -= 1
-    count += 1
-
-print(count)
+print(result)
