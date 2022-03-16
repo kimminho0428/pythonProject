@@ -1,17 +1,12 @@
-data = input()
-count0 = 0
-count1 = 0
+n = int(input())
+data = list(map(int, input().split()))
+data.sort()
+count = 0
+result = 0
+for i in data:
+    count += 1
+    if count >= i:
+        result += 1
+        count = 0
 
-if data[0] == '1':
-    count0 += 1
-else:
-    count1 += 1
-
-for i in range(len(data) - 1):
-    if data[i] != data[i + 1]:
-        if data[i + 1] == '1':
-            count0 += 1
-        else:
-            count1 += 1
-
-print(min(count0, count1))
+print(result)
