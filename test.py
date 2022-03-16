@@ -1,12 +1,10 @@
-n = int(input())
-data = list(map(int, input().split()))
-data.sort()
-count = 0
-result = 0
-for i in data:
-    count += 1
-    if count >= i:
-        result += 1
-        count = 0
+s = input()
+result = int(s[0])
+for i in range(1, len(s)):
+    count = int(s[i])
+    if result <= 1 or count <= 1:
+        result += count
+    else:
+        result *= count
 
 print(result)
