@@ -1,9 +1,12 @@
-n = int(input())
+n, m = map(int, input().split())
 data = list(map(int, input().split()))
-data.sort()
-target = 1
+array = [0] * 11
 for x in data:
-    if target < x:
-        break
-    target += x
-print(target)
+    array[x] += 1
+
+result = 0
+for i in range(1, m + 1):
+    n -= array[i]
+    result += n * array[i]
+
+print(result)
