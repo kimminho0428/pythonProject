@@ -31,5 +31,4 @@ def solution(food_times, k):
     # 음식의 번호 기준으로 정렬
     return result[(k - sum_value) % length][1]
 
-
 print(solution([3, 1, 2], 5))
